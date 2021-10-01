@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://unpkg.com/mathjs@7.2.0/dist/math.js"></script>
+        <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+        <script src="model.js"></script>
+        <script src="basic_view.js"></script>
+        <script src="view.js"></script>
+        <script src="control.js"></script>
+        <script src="menu.js"></script>
+        <script src="html_menu.js"></script>
+        <script src="submanager.js"></script>
+        <script src="main.js"></script>
+        <script>
+        $(document).ready(function() {
+            var heightmapSize = 1024;
+            var gridSize = 1024;
+            
+            
+            initialize(gridSize, heightmapSize);
+            
+            $("#editor-export-button").click(function(){
+                exportMap();
+            });
+            
+            $("#editor-import-button").click(function(){
+                // 
+                var fileInput = document.getElementById("editor-import-file").files;
+                
+                fileInput = fileInput[0];
+                
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var content = e.target.result;
+                    importMap(content);
+                };
+                reader.readAsText(fileInput);
+            });
+        });
+        </script>
+        <style>
+            button.toolactive {
+                color: red;
+            }
+            
+            button.toolinactive {
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main-tools-buttonbox">
+            <button id="heightmap-tool-button" data-target="heightmap">Heightmap</button>
+            <button id="roads-tool-button" data-target="roads">Roads</button>
+            <button id="forests-tool-button" data-target="forests">Forests</button>
+            <button id="settlements-tool-button" data-target="settlements">Settlements</button>
+            <button id="spawnpoints-tool-button" data-target="spawnpoints">Spawnpoints</button>
+        </div>
+        <div id="add-sub-buttonbox">
+        
+        </div>
+        
+        <div id="objects-listbox">
+            
+        </div>
+        
+        <div id="subtools-buttonbox">
+            
+        </div>
+        
+        <div style="width: 100%; height: 100%;">
+            <div id="container"></div>
+        </div>
+        <div id="editor-button-holder">
+            <button id="editor-export-button">Download</button>
+            <button id="editor-import-button">Upload</button>
+        </div>
+        <div>
+            <input type="file" id="editor-import-file" />
+        </div>
+    </body>
+    
+</html>
